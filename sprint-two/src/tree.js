@@ -1,21 +1,37 @@
 var Tree = function(value) {
-  var newTree = {};
+  var newTree = Object.create(treeMethods);
   newTree.value = value;
 
   // your code here
-  newTree.children = null;  // fix me
+  newTree.children = []
 
   return newTree;
 };
 
 var treeMethods = {};
 
+// Time complexity = O(1)
 treeMethods.addChild = function(value) {
   // your code here
-  newTree.children = null;  // fix me
+  this.children.push(Tree(value));
 };
 
 treeMethods.contains = function(target) {
+  var result = false;
+
+  var traverseTree = function(node, target){
+    if (node.value === target) {
+      return true;
+    }
+    else {
+      for (var i = 0; i < node.children.length; i++) {
+        result = traverseTree(node.children[i], target);
+      }
+    }
+    return result;
+  };
+
+  return traverseTree(this, target);
 };
 
 
