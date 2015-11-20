@@ -16,7 +16,8 @@ binarySearchTreePrototype.insert = function(value, node) {
   if (value > node.value) {
     if (node.right === null){
       node.right = BinarySearchTree(value);  
-    } else {
+    } 
+    else {
       node.insert(value, node.right);
     }
   }
@@ -32,24 +33,10 @@ binarySearchTreePrototype.insert = function(value, node) {
 binarySearchTreePrototype.contains = function(value) {
   var result = false;
 
-  var searchTree = function(node) {
-    if (node.value === value) {
-      result = true;
-    } else {
-      if (node.value > value) {
-        if (node.left !== null ) {
-          searchTree(node.left)
-        } 
-      }
-      if (node.value < value) {
-        if (node.right !== null) {
-          searchTree(node.right)
-        }
-      }
-    }
-  }
-  
-  searchTree(this);
+  this.smartFind(function() {
+    result = true;    
+  }, value)
+
   return result;
 }
 
@@ -62,6 +49,24 @@ binarySearchTreePrototype.depthFirstLog = function(callback) {
   }
   if (this.right) {
     this.right.depthFirstLog(callback);
+  }
+}
+
+binarySearchTreePrototype.smartFind = function(callback, value ){
+  if (this) {
+    if(this.value === value) {
+      callback(this.value)
+    }
+    else if (this.value > value) {
+      if (this.left) {
+        this.left.smartFind(callback,value);
+      }
+    }
+    else if (this.value < value) {
+      if (this.right) {
+        this.right.smartFind(callback,value);
+      }
+    }
   }
 }
 
