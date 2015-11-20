@@ -94,8 +94,8 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
       }
     }
   }
-  from.edges = from.edges.slice(0,fromKey).concat(from.edges.slice(fromKey+1));
-  to.edges = to.edges.slice(0,toKey).concat(to.edges.slice(toKey+1));
+  from.edges = from.edges.slice( 0 , fromKey ).concat( from.edges.slice( fromKey + 1 ) );
+  to.edges = to.edges.slice( 0, toKey ).concat( to.edges.slice( toKey + 1 ) );
   // delete from.edges[fromKey];
   // delete to.edges[toKey];
 };
