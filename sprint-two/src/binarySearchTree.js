@@ -33,7 +33,7 @@ binarySearchTreePrototype.insert = function(value, node) {
 binarySearchTreePrototype.contains = function(value) {
   var result = false;
 
-  this.smartFind(function() {
+  this.binaryTree(function() {
     result = true;    
   }, value)
 
@@ -52,19 +52,19 @@ binarySearchTreePrototype.depthFirstLog = function(callback) {
   }
 }
 
-binarySearchTreePrototype.smartFind = function(callback, value ){
+binarySearchTreePrototype.binaryTree = function(callback, value ){
   if (this) {
     if(this.value === value) {
       callback(this.value)
     }
     else if (this.value > value) {
       if (this.left) {
-        this.left.smartFind(callback,value);
+        this.left.binaryTree(callback,value);
       }
     }
     else if (this.value < value) {
       if (this.right) {
-        this.right.smartFind(callback,value);
+        this.right.binaryTree(callback,value);
       }
     }
   }
