@@ -45,6 +45,15 @@ var LinkedList = function() {
   return list;
 };
 
+
+/*
+ * Complexity: What is the time complexity of the above functions?
+ addToTail: O(1)
+ removeHead: O(1)
+ contains: O(n)
+ 
+ */
+
 var Node = function(value) {
   var node = {};
 
@@ -54,6 +63,3 @@ var Node = function(value) {
   return node;
 };
 
-/*
- * Complexity: What is the time complexity of the above functions?
- */
