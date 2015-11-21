@@ -23,7 +23,7 @@ HashTable.prototype.insert = function(k, v) {
     if (needToOverwrite === true) {
       tuples.push([k,v]); //push new array in case of key collision
     }
-  } else { // we are not going to overwrite anything so we have to push a new array
+  } else {  // we are not going to overwrite anything so we have to push a new array
     tuples = [];
     tuples.push([k,v]);
     this._storage.set(index, tuples);  
