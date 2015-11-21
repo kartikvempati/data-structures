@@ -31,6 +31,17 @@ treeMethods.contains = function(target) {
   return traverseTree(this, target);
 };
 
+treeMethods.removeFromParent = function() {
+  var orphan;
+  for (var i=0; i< this.parent.children.length;  i++){
+    if (this.parent.children[i].value === this.value){
+      orphan = i;
+    }
+  }
+  this.parent.children[orphan] = null;
+  this.parent = null;
+};
+
 
 
 /*

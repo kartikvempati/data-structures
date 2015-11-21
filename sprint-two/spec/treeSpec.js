@@ -50,4 +50,18 @@ describe('tree', function() {
     expect(tree.children[1].children[0].parent.value).to.equal(4);
   });
 
+  it('should be able to removeParents', function(){
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    tree.children[0].addChild(8);
+    tree.children[0].children[0].addChild(7);
+    tree.children[0].children[0].addChild(10);
+    tree.children[0].children[1].addChild(11);
+    tree.children[0].children[1].addChild(9);
+    tree.children[0].children[1].children[1].removeFromParent();
+    expect(tree.children[0].children[1].children[1]).to.equal(null);
+    //    at Object.treeMethods.removeFromParent (file:///Users/student/Desktop/dataStructures/2015-11-data-structures/sprint-two/src/tree.js:35:31)
+
+  });
+
 });
