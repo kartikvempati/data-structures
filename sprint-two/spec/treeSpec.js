@@ -60,8 +60,24 @@ describe('tree', function() {
     tree.children[0].children[1].addChild(9);
     tree.children[0].children[1].children[1].removeFromParent();
     expect(tree.children[0].children[1].children[1]).to.equal(null);
-    //    at Object.treeMethods.removeFromParent (file:///Users/student/Desktop/dataStructures/2015-11-data-structures/sprint-two/src/tree.js:35:31)
 
+  });
+
+  it ('should have a function to apply a callback to each node in the tree', function() {
+    var sum = 0;
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    tree.children[0].addChild(8);
+    tree.children[0].children[0].addChild(7);
+    tree.children[0].children[0].addChild(10);
+    tree.children[0].children[1].addChild(11);
+    tree.children[0].children[1].addChild(9);
+    tree.traverse(function(val){
+      sum += val.value;
+      return sum;
+    });
+
+    expect(sum).to.equal(56);
   });
 
 });
