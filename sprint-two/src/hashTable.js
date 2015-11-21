@@ -73,15 +73,15 @@ HashTable.prototype.remove = function(k) {
 };
 
 HashTable.prototype.adjustSize = function(newLimit){
-  var prevStorage = this._storage;
   newLimit = Math.max(newLimit, 8);
   if (newLimit === this._limit)
     { return };
 
+  var prevStorage = this._storage;
+  var context = this;
   this._limit = newLimit;
   this._storage = LimitedArray(this._limit);
   this._size = 0;
-  var context = this;
 
   prevStorage.each(function(value, key){
     if(value){
