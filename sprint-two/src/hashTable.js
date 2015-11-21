@@ -7,52 +7,57 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+  var tuples = this._storage.get(index);
 
-  if(this._storage.get(index) !== undefined){
-    var arr = this._storage.get(index)
-    var collision = true;
-    for (var i = 0; i < arr.length; i++){
-      if(arr[i][0] === k){
-        arr[i][1] = v;
-        collision = false;
+  if (tuples !== undefined){ //if there is already something in tuples
+    var needToOverwrite = true;
+    
+    for (var i = 0; i < tuples.length; i++) {
+      if(tuples[i][0] === k){
+        tuples[i][1] = v; //overwrite the current value
+        needToOverwrite = false;
+        break;
       }
     } 
-    if (collision === true){
-      arr.push([k,v]);
+
+    if (needToOverwrite === true) {
+      tuples.push([k,v]); //push new array in case of key collision
     }
-  } 
-  else {
-    var arr = [];
-    arr.push([k,v]);
-    this._storage.set(index, arr);  
+  } else { // we are not going to overwrite anything so we have to push a new array
+    tuples = [];
+    tuples.push([k,v]);
+    this._storage.set(index, tuples);  
   }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var arr = this._storage.get(index);
+  var tuples = this._storage.get(index);
+  var result;
 
-  for (var i = 0; i < arr.length; i++){
-    if (arr[i][0] === k){
-      return arr[i][1];
+  for (var i = 0; i < tuples.length; i++){
+    if (tuples[i][0] === k){
+      result = tuples[i][1];
+      break;
     }
   }
+
+  return result;
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  this._storage.each( function(value, i, collection) {
-    if (index === i){
-      var arr = collection[i];
-      var removed;
-      for (var j = 0; j < arr.length; j++){
-        if (arr[j][0] === k){
-          removed = j;
-        }
-      }
-      collection[i] = arr.slice(0, removed).concat(arr.slice(removed+1));
-    }  
-  });
+  var tuples = this._storage.get(index);
+  var removedKey;
+
+  for (var i = 0; i < tuples.length; i++){
+    if (tuples[i][0] === k){
+      removedKey = i;
+      break;
+    }
+  }
+
+  tuples.splice(removedKey, 1);
 };
 
 
